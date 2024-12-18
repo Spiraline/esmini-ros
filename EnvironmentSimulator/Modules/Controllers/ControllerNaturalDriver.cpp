@@ -167,7 +167,7 @@ void ControllerNaturalDriver::Step(double dt)
         }
         case State::CHANGE_LANE:
         {
-            acceleration = 0.0; // Don't accelerate during lane change
+            acceleration = 0.0;  // Don't accelerate during lane change
             break;
         }
     }
@@ -482,7 +482,7 @@ bool ControllerNaturalDriver::CheckLaneChangePossible(const int lane_id)
                       politeness_ * (new_following_pred_acceleration - new_following_acceleration + old_following_pred_acceleration -
                                      old_following_acceleration);
 
-        if (jerk <= lane_change_acc_gain_ + SMALL_NUMBER) // Add small number to prevent very small jerk promoting lane change
+        if (jerk <= lane_change_acc_gain_ + SMALL_NUMBER)  // Add small number to prevent very small jerk promoting lane change
         {
             return false;
         }
