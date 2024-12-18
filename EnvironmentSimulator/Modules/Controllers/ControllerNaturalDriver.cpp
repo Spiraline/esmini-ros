@@ -98,7 +98,7 @@ ControllerNaturalDriver::ControllerNaturalDriver(InitArgs* args)
     }
     if (args && args->properties && args->properties->ValueExists("laneChangeAccGain"))
     {
-        lane_change_acc_gain_ = strtoi(args->properties->GetValueStr("laneChangeAccGain"));
+        lane_change_acc_gain_ = strtod(args->properties->GetValueStr("laneChangeAccGain"));
     }
     if (args && args->properties && args->properties->ValueExists("politeness"))
     {
@@ -111,7 +111,7 @@ ControllerNaturalDriver::ControllerNaturalDriver(InitArgs* args)
         // in override mode setSpeed is set explicitly (if missing
         // the current speed when controller is activated will be
         // used as setSpeed)
-        mode_ = ControlOperationMode::MODE_ADDITIVE;
+        mode_ = ControlOperationMode::MODE_OVERRIDE;
     }
     lane_change_cooldown_ = lane_change_duration_ + lane_change_delay_;
 }
