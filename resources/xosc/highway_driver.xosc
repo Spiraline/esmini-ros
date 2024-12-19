@@ -94,9 +94,9 @@
                      </SpeedAction>
                   </LongitudinalAction>
                </PrivateAction>
-               <ControllerAction>   
+               <PrivateAction>   
                   <ActivateControllerAction longitudinal="true" lateral="false" />
-               </ControllerAction>   
+               </PrivateAction>   
             </Private>
             <Private entityRef="Target1">
                <PrivateAction>
@@ -116,9 +116,6 @@
                      </SpeedAction>
                   </LongitudinalAction>
                </PrivateAction>
-               <ControllerAction>   
-                  <ActivateControllerAction longitudinal="true" lateral="false" />
-               </ControllerAction>   
             </Private>
             <Private entityRef="Target2">
                <PrivateAction>
@@ -138,9 +135,6 @@
                      </SpeedAction>
                   </LongitudinalAction>
                </PrivateAction>
-               <ControllerAction>   
-                  <ActivateControllerAction longitudinal="true" lateral="false" />
-               </ControllerAction>   
             </Private>
             <Private entityRef="Target3">
                <PrivateAction>
@@ -160,9 +154,6 @@
                      </SpeedAction>
                   </LongitudinalAction>
                </PrivateAction>
-               <ControllerAction>   
-                  <ActivateControllerAction longitudinal="true" lateral="false" />
-               </ControllerAction>   
             </Private>
             <Private entityRef="Target4">
                <PrivateAction>
@@ -182,9 +173,6 @@
                      </SpeedAction>
                   </LongitudinalAction>
                </PrivateAction>
-               <ControllerAction>   
-                  <ActivateControllerAction longitudinal="true" lateral="false" />
-               </ControllerAction>   
             </Private>
             <Private entityRef="Target5">
                <PrivateAction>
@@ -204,9 +192,6 @@
                      </SpeedAction>
                   </LongitudinalAction>
                </PrivateAction>
-               <ControllerAction>   
-                  <ActivateControllerAction longitudinal="true" lateral="false" />
-               </ControllerAction>   
             </Private>
             <Private entityRef="Target6">
                <PrivateAction>
@@ -226,9 +211,6 @@
                      </SpeedAction>
                   </LongitudinalAction>
                </PrivateAction>
-               <ControllerAction>   
-                  <ActivateControllerAction longitudinal="true" lateral="false" />
-               </ControllerAction>   
             </Private>
             <Private entityRef="Target7">
                <PrivateAction>
@@ -248,9 +230,6 @@
                      </SpeedAction>
                   </LongitudinalAction>
                </PrivateAction>
-               <ControllerAction>   
-                  <ActivateControllerAction longitudinal="true" lateral="false" />
-               </ControllerAction>   
             </Private>
             <Private entityRef="Target8">
                <PrivateAction>
@@ -270,9 +249,6 @@
                      </SpeedAction>
                   </LongitudinalAction>
                </PrivateAction>
-               <ControllerAction>   
-                  <ActivateControllerAction longitudinal="true" lateral="false" />
-               </ControllerAction>   
             </Private>
             <Private entityRef="Target9">
                <PrivateAction>
@@ -292,9 +268,6 @@
                      </SpeedAction>
                   </LongitudinalAction>
                </PrivateAction>
-               <ControllerAction>   
-                  <ActivateControllerAction longitudinal="true" lateral="false" />
-               </ControllerAction>   
             </Private>
          </Actions>
       </Init>

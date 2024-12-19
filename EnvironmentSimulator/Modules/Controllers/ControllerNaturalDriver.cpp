@@ -132,23 +132,18 @@ void ControllerNaturalDriver::Step(double dt)
     UpdateSurroundingVehicles();
     double acceleration = 0.0;
 
-    switch (state_)
+    if (state_ == State::DRIVE)
     {
-        case State::DRIVE:
+        acceleration = GetAcceleration(object_, vehicles_of_interest_[VoIType::LEAD].vehicle);
+        if (acceleration < max_deceleration_)
         {
-            acceleration = GetAcceleration(object_, vehicles_of_interest_[VoIType::LEAD].vehicle);
-            if (acceleration < max_deceleration_)
-            {
-                acceleration = max_deceleration_;
-            }
+            acceleration = max_deceleration_;
+        }
 
-            if (!lane_change_injected)
+        if (!lane_change_injected)
+        {
+            if (AdjacentLanesAvailable())
             {
-                bool adjacent_lanes_available = AdjacentLanesAvailable();
-                if (!adjacent_lanes_available)
-                {
-                    break;
-                }
                 for (const auto& lane_id : lane_ids_available_)
                 {
                     if (lane_id != 0)
@@ -163,12 +158,6 @@ void ControllerNaturalDriver::Step(double dt)
                     }
                 }
             }
-            break;
-        }
-        case State::CHANGE_LANE:
-        {
-            acceleration = 0.0;  // Don't accelerate during lane change
-            break;
         }
     }
 
