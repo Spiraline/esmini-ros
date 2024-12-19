@@ -15,9 +15,6 @@
  */
 
 #include "ControllerNaturalDriver.hpp"
-#include "CommonMini.hpp"
-#include "Entities.hpp"
-#include "ScenarioGateway.hpp"
 #include "playerbase.hpp"
 
 using namespace scenarioengine;
@@ -56,62 +53,65 @@ ControllerNaturalDriver::ControllerNaturalDriver(InitArgs* args)
 {
     operating_domains_ = static_cast<unsigned int>(ControlDomains::DOMAIN_LONG);
 
-    if (args && args->properties && args->properties->ValueExists("desiredDistance"))
+    if (args && args->properties)
     {
-        desired_distance_ = strtod(args->properties->GetValueStr("desiredDistance"));
-    }
-    if (args && args->properties && args->properties->ValueExists("desiredSpeed"))
-    {
-        desired_speed_ = strtod(args->properties->GetValueStr("desiredSpeed"));
-    }
-    if (args && args->properties && args->properties->ValueExists("laneChangeDuration"))
-    {
-        lane_change_duration_ = static_cast<float>(strtod(args->properties->GetValueStr("laneChangeDuration")));
-    }
-    if (args && args->properties && args->properties->ValueExists("lookAheadDistance"))
-    {
-        lookahead_dist_ = strtod(args->properties->GetValueStr("lookAheadDistance"));
-    }
-    if (args && args->properties && args->properties->ValueExists("maxDec"))
-    {
-        max_deceleration_ = strtod(args->properties->GetValueStr("maxDec"));
-    }
-    if (args && args->properties && args->properties->ValueExists("maxAcc"))
-    {
-        max_acceleration_ = strtod(args->properties->GetValueStr("maxAcc"));
-    }
-    if (args && args->properties && args->properties->ValueExists("laneChangeDelay"))
-    {
-        lane_change_delay_ = strtod(args->properties->GetValueStr("laneChangeDelay"));
-    }
-    if (args && args->properties && args->properties->ValueExists("thw"))
-    {
-        desired_thw_ = strtod(args->properties->GetValueStr("thw"));
-    }
-    if (args && args->properties && args->properties->ValueExists("maxImposedBraking"))
-    {
-        max_imposed_braking_ = strtod(args->properties->GetValueStr("maxImposedBraking"));
-    }
-    if (args && args->properties && args->properties->ValueExists("route"))
-    {
-        route_ = strtoi(args->properties->GetValueStr("route"));
-    }
-    if (args && args->properties && args->properties->ValueExists("laneChangeAccGain"))
-    {
-        lane_change_acc_gain_ = strtod(args->properties->GetValueStr("laneChangeAccGain"));
-    }
-    if (args && args->properties && args->properties->ValueExists("politeness"))
-    {
-        politeness_ = strtod(args->properties->GetValueStr("politeness"));
-    }
-    if (args && args->properties && !args->properties->ValueExists("mode"))
-    {
-        // Default mode for this controller is additive
-        // which will use speed set by other actions as setSpeed
-        // in override mode setSpeed is set explicitly (if missing
-        // the current speed when controller is activated will be
-        // used as setSpeed)
-        mode_ = ControlOperationMode::MODE_OVERRIDE;
+        if (args->properties->ValueExists("desiredDistance"))
+        {
+            desired_distance_ = strtod(args->properties->GetValueStr("desiredDistance"));
+        }
+        if (args->properties->ValueExists("desiredSpeed"))
+        {
+            desired_speed_ = strtod(args->properties->GetValueStr("desiredSpeed"));
+        }
+        if (args->properties->ValueExists("laneChangeDuration"))
+        {
+            lane_change_duration_ = static_cast<float>(strtod(args->properties->GetValueStr("laneChangeDuration")));
+        }
+        if (args->properties->ValueExists("lookAheadDistance"))
+        {
+            lookahead_dist_ = strtod(args->properties->GetValueStr("lookAheadDistance"));
+        }
+        if (args->properties->ValueExists("maxDec"))
+        {
+            max_deceleration_ = strtod(args->properties->GetValueStr("maxDec"));
+        }
+        if (args->properties->ValueExists("maxAcc"))
+        {
+            max_acceleration_ = strtod(args->properties->GetValueStr("maxAcc"));
+        }
+        if (args->properties->ValueExists("laneChangeDelay"))
+        {
+            lane_change_delay_ = strtod(args->properties->GetValueStr("laneChangeDelay"));
+        }
+        if (args->properties->ValueExists("thw"))
+        {
+            desired_thw_ = strtod(args->properties->GetValueStr("thw"));
+        }
+        if (args->properties->ValueExists("maxImposedBraking"))
+        {
+            max_imposed_braking_ = strtod(args->properties->GetValueStr("maxImposedBraking"));
+        }
+        if (args->properties->ValueExists("route"))
+        {
+            route_ = strtoi(args->properties->GetValueStr("route"));
+        }
+        if (args->properties->ValueExists("laneChangeAccGain"))
+        {
+            lane_change_acc_gain_ = strtod(args->properties->GetValueStr("laneChangeAccGain"));
+        }
+        if (args->properties->ValueExists("politeness"))
+        {
+            politeness_ = strtod(args->properties->GetValueStr("politeness"));
+        }
+        if (!args->properties->ValueExists("mode"))
+        {
+            // Default mode for this controller is additive
+            // which will use speed set by other actions as setSpeed
+            // in override mode setSpeed is set explicitly (if missing
+            // the current speed when controller is activated will be
+            // used as setSpeed)
+            mode_ = ControlOperationMode::MODE_OVERRIDE;
+        }
     }
     lane_change_cooldown_ = lane_change_duration_ + lane_change_delay_;
 }
@@ -132,7 +132,7 @@ void ControllerNaturalDriver::Step(double dt)
     UpdateSurroundingVehicles();
     double acceleration = 0.0;
 
-    if (state_ == State::DRIVE)
+    if (State::DRIVE == state_)
     {
         acceleration = GetAcceleration(object_, vehicles_of_interest_[VoIType::LEAD].vehicle);
         if (acceleration < max_deceleration_)
@@ -182,7 +182,7 @@ void ControllerNaturalDriver::Step(double dt)
     if (lane_change_injected)
     {
         lane_change_cooldown_ -= dt;
-        if (state_ == State::CHANGE_LANE &&
+        if (State::CHANGE_LANE == state_ &&
             lane_change_cooldown_ <= lane_change_delay_)  // Keep constant long. acceleration during lane_change_duration_
         {
             target_lane_ = 0;

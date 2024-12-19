@@ -12,12 +12,10 @@
 
 #pragma once
 
-#include <string>
-#include <array>
-#include <unordered_map>
 #include "Controller.hpp"
 #include "Entities.hpp"
-#include "vehicle.hpp"
+#include <array>
+#include <unordered_map>
 
 #define CONTROLLER_NATURAL_DRIVER_TYPE_NAME "NaturalDriver"
 
