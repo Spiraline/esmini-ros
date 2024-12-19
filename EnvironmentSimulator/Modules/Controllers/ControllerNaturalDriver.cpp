@@ -130,7 +130,7 @@ void ControllerNaturalDriver::InitPostPlayer()
 void ControllerNaturalDriver::Step(double dt)
 {
     UpdateSurroundingVehicles();
-    double acceleration;
+    double acceleration = 0.0;
 
     switch (state_)
     {
